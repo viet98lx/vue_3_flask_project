@@ -9,11 +9,14 @@
   },
   "dependencies": {
     "bootstrap": "^5.0.2",
+    "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.10"
+    "vue-carousel": "^0.18.0",
+    "vue-router": "^4.0.10",
+    "vue-table-dynamic": "^0.4.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

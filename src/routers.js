@@ -3,6 +3,8 @@ import Home from "@/components/Home";
 import Create from "@/components/Create";
 import ActorDetail from "@/components/ActorDetail";
 import ActorEdit from "@/components/ActorEdit";
+import ActorsHome from "@/components/ActorsHome";
+import MoviesHome from "@/components/FilmsHome"
 
 const routes = [
     {
@@ -11,18 +13,28 @@ const routes = [
         component:Home
     },
     {
-        path:'/create',
-        name:'Create',
+        path:'/actorshome',
+        name:'actorshome',
+        component:ActorsHome
+    },
+    {
+        path:'/movieshome',
+        name:'movieshome',
+        component:MoviesHome
+    },
+    {
+        path:'/actor_create',
+        name:'create',
         component: Create
     },
     {
-        path:'/detail/:actor_id',
+        path:'/actor_detail/:actor_id',
         name:'detail',
         component: ActorDetail,
         props:true
     },
     {
-        path:'/edit/:actor_id',
+        path:'/actor_edit/:actor_id',
         name:'actoredit',
         component: ActorEdit,
         props:true

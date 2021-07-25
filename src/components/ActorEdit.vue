@@ -32,7 +32,7 @@ export default {
       if (!this.first_name || !this.last_name) {
         this.error = "Please add all fields"
       } else {
-        fetch(`http://localhost:5000/update/${this.actor_id}/`, {
+        fetch(`http://localhost:5000/actor/update/${this.actor_id}/`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -63,7 +63,7 @@ export default {
   },
   beforeRouteEnter(to, from, next){
     if(to.params.actor_id != undefined){
-      fetch(`http://localhost:5000/get/${to.params.actor_id}/`, {
+      fetch(`http://localhost:5000/actor/get/${to.params.actor_id}/`, {
         method:"GET",
         headers: {
           "Content-Type":"application/json",
