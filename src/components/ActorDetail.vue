@@ -10,6 +10,9 @@
 </template>
 
 <script>
+import Repository from "../repositories/RepositoryFactory"
+const ActorRepository = Repository.get("actors")
+
 export default {
   name: "ActorDetail",
   data(){
@@ -24,40 +27,17 @@ export default {
     }
   },
   methods: {
-    getActorData() {
+    async getActorData() {
       console.log("call get actors")
-      fetch(`http://localhost:5000/actor/get/${this.actor_id}/`, {
-        method:"GET",
-        headers: {
-          "Content-Type":"application/json",
-        }
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        // this.actors.push(...data)
-        this.actor = data
-      })
-      .catch(error =>{
-        console.log(error)
-      })
+      const resp = await ActorRepository.getActor(this.actor_id)
+      this.actor = resp['data']
+      console.log(this.actor.actor_id)
     },
-    deleteActor(){
+    async deleteActor(){
       console.log("call get actors")
-      fetch(`http://localhost:5000/actor/delete/${this.actor_id}/`, {
-        method:"DELETE",
-        headers: {
-          "Content-Type":"application/json",
-        }
-      })
-      .then(() => {
-        // console.log(data)
-        // this.actors.push(...data)
-        // this.actor = data
-        this.$router.push({name:'Home'})
-      })
-      .catch(error =>{
-        console.log(error)
+      await ActorRepository.delete(this.actor_id)
+      this.$router.push({
+            name:'actorshome'
       })
     }
   },

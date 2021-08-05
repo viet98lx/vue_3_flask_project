@@ -1,5 +1,7 @@
 <template>
   <div class="offset mt-5">
+    <router-link to="actor_create"
+    class="btn btn-success mt-3">ADD ACTOR</router-link>
     <table class="table table-bordered">
     <thead>
       <tr>
@@ -36,6 +38,8 @@
 </template>
 
 <script>
+import Repository from "../repositories/RepositoryFactory"
+const ActorRepository = Repository.get("actors")
 
 export default {
   name: "ActorsHome",
@@ -50,27 +54,17 @@ export default {
     }
   },
   methods: {
-    getActors() {
-      fetch('http://127.0.0.1:5000/actor/get', {
-        method:"GET",
-        headers: {
-          "Content-Type":"application/json"
-        }
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        const new_data = []
-        for (let obj of data){
-          new_data.push({'actor_id':obj['actor_id'],
-          'full_name': obj['first_name'].concat(' ',obj['last_name']),
-          'last_update': obj['last_update']})
-        }
-        this.actors.push(...new_data)
-      })
-      .catch(error =>{
-        console.log(error)
-      })
+    async getActors() {
+      const resp = await ActorRepository.get()
+      console.log(resp)
+      const data = resp['data']
+      const new_data = []
+      for (let obj of data){
+        new_data.push({'actor_id':obj['actor_id'],
+        'full_name': obj['first_name'].concat(' ',obj['last_name']),
+        'last_update': obj['last_update']})
+      }
+      this.actors.push(...new_data)
     },
 		setPages () {
       console.log('call set pages')

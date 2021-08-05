@@ -18,6 +18,9 @@
 </template>
 
 <script>
+import Repository from "../repositories/RepositoryFactory"
+const ActorRepository = Repository.get("actors")
+
 export default {
   name: "ActorEdit",
   props:{
@@ -27,29 +30,18 @@ export default {
     }
   },
   methods:{
-    updateActor(){
+    async updateActor(){
       console.log("call update actor")
       if (!this.first_name || !this.last_name) {
         this.error = "Please add all fields"
       } else {
-        fetch(`http://localhost:5000/actor/update/${this.actor_id}/`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({first_name:this.first_name,last_name:this.last_name})
-        })
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data)
-          // this.actors.push(...data)
-          // this.actor = data
-          this.$router.push({
-            name:'Home'
-          })
-        })
-        .catch(error => {
-          console.log(error)
+        let body_request = {
+          first_name:this.first_name,
+          last_name:this.last_name
+        }
+        await ActorRepository.update(body_request, this.actor_id)
+        this.$router.push({
+            name:'actorshome'
         })
       }
     }
@@ -61,24 +53,10 @@ export default {
       error:null
     }
   },
-  beforeRouteEnter(to, from, next){
+  async beforeRouteEnter(to, from, next){
     if(to.params.actor_id != undefined){
-      fetch(`http://localhost:5000/actor/get/${to.params.actor_id}/`, {
-        method:"GET",
-        headers: {
-          "Content-Type":"application/json",
-        }
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        // this.actors.push(...data)
-        return next(vm => (vm.first_name=data.first_name, vm.last_name=data.last_name))
-        // this.actor = data
-      })
-      .catch(error =>{
-        console.log(error)
-      })
+      const data = await ActorRepository.getActor(to.params.actor_id)
+      return next(vm => (vm.first_name=data.first_name, vm.last_name=data.last_name))
     }
     else{
       return next()

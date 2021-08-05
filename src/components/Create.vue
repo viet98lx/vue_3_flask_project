@@ -19,6 +19,9 @@
 </template>
 
 <script>
+import Repository from "../repositories/RepositoryFactory"
+const ActorRepository = Repository.get("actors")
+
 export default {
   name: "Create",
   data(){
@@ -29,29 +32,18 @@ export default {
     }
   },
   methods: {
-    insertActor() {
+    async insertActor() {
       console.log("call insert actor")
       if (!this.first_name || !this.last_name) {
         this.error = "Please add all fields"
       } else {
-        fetch('http://localhost:5000/add', {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({first_name:this.first_name,last_name:this.last_name})
-        })
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data)
-          // this.actors.push(...data)
-          // this.actor = data
-          this.$router.push({
-            name:'Home'
-          })
-        })
-        .catch(error => {
-          console.log(error)
+        let body_request = {
+          first_name:this.first_name,
+          last_name:this.last_name
+        }
+        await ActorRepository.create(body_request)
+        this.$router.push({
+            name:'actorshome'
         })
       }
     }

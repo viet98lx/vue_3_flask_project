@@ -2,7 +2,7 @@
 <!--<h1>this is home page</h1>-->
 <div class="container mt-5">
 <!--  <router-link class="link-style" :to="/">This is home page</router-link>-->
-  <h1>Thumbnail</h1>
+  <h2 class="remove-whitespace">HOT MEME</h2>
   <div v-if="images.length">
     <div class="gallery">
       <div class="gallery-panel"
@@ -61,38 +61,29 @@ export default {
           sample: require('@/assets/meme_6.png')
         },
           {
-            name: 'meme_6',
+            name: 'meme_7',
           sample: require('@/assets/meme_7.jpg')
         },
           {
-            name: 'meme_6',
+            name: 'meme_8',
           sample: require('@/assets/meme_8.jpg')
         },
           {
-            name: 'meme_6',
+            name: 'meme_9',
           sample: require('@/assets/meme_9.jpg')
+        },
+          {
+            name: 'meme_11',
+          sample: require('@/assets/meme_11.jpg')
+        },
+          {
+            name: 'meme_12',
+          sample: require('@/assets/meme_12.jpg')
         }
       ]
     }
   },
   methods: {
-    getActors() {
-      // console.log("call get actors")
-      fetch('http://127.0.0.1:5000/actor/get', {
-        method:"GET",
-        headers: {
-          "Content-Type":"application/json"
-        }
-      })
-      .then(resp => resp.json())
-      .then(data => {
-        console.log(data)
-        this.actors.push(...data)
-      })
-      .catch(error =>{
-        console.log(error)
-      })
-    }
   },
   created(){
     // this.getActors()
@@ -115,5 +106,11 @@ export default {
   height: 22vw;
   object-fit: cover;
   border-radius: 0.75rem;
+}
+h2.remove-whitespace{
+  color:brown;
+  text-align:center;
+  margin: 0;
+  padding: 0;
 }
 </style>
