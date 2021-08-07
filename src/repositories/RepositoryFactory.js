@@ -3,7 +3,7 @@ import FilmRepository from './FilmRepository';
 
 const repositories = {
     'actors': ActorRepository,
-    'users': FilmRepository
+    'films': FilmRepository
 }
 export default {
     get: name => repositories[name]

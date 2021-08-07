@@ -13,10 +13,10 @@
     </thead>
     <tbody>
     <tr v-for="actor in displayedPosts" :key="actor.actor_id">
-      <td>{{actor.actor_id}}</td>
+      <td style="text-align:center">{{actor.actor_id}}</td>
       <td>{{actor.full_name}}</td>
       <td>{{actor.last_update}}</td>
-      <td><router-link class="link-style" :to="{name:'detail',params:{actor_id:actor.actor_id}}">DETAIL</router-link></td>
+      <td><router-link class="link-style" :to="{name:'actor_detail',params:{actor_id:actor.actor_id}}">DETAIL</router-link></td>
     </tr>
     </tbody>
   </table>
@@ -109,8 +109,12 @@ export default {
 </script>
 
 <style scoped>
+table, td, th{
+  text-align:center
+}
+
 .link-style:hover{
-  font-weight: bold;
+  /*font-weight: bold;*/
   color: red;
   /*text-decoration: aqua;*/
 }

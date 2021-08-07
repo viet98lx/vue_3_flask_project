@@ -1,10 +1,10 @@
 <template>
 <div class="container mt-5">
-  <strong>ID:</strong><p>{{actor.actor_id}}</p>
-  <strong>NAME:</strong><p>{{actor.first_name}} {{actor.last_name}}</p>
-  <strong>LAST UPDATE TIME:</strong><p>{{actor.last_update}}</p>
+  <p><strong>ID:</strong> {{actor.actor_id}}</p>
+  <p><strong>NAME:</strong> {{actor.first_name}} {{actor.last_name}}</p>
+  <p><strong>LAST UPDATE TIME:</strong> {{actor.last_update}}</p>
   <button class="btn btn-danger mx-3 mt-3" @click="deleteActor">Delete</button>
-  <router-link :to="{name:'actoredit', params:{actor_id:actor.actor_id}}"
+  <router-link :to="{name:'actor_edit', params:{actor_id:actor.actor_id}}"
   class="btn btn-success mt-3">Update</router-link>
 </div>
 </template>

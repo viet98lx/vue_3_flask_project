@@ -42,5 +42,11 @@ class FilmSchema(ma.Schema):
                   'original_language_id', 'rental_duration', 'rental_rate', 'length' \
                   'replacement_cost', 'rating', 'special_features', 'last_update')
 
+class FilmDetail(ma.Schema):
+    class Meta:
+        fields = ('film_id', 'title', 'description', 'release_year', 'language', 'length', 'rating', 'price')
+
 film_schema = FilmSchema()
 films_schema = FilmSchema(many=True)
+film_detail_schema = FilmDetail()
+films_detail_schema = FilmDetail(many=True)

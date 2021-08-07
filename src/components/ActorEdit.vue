@@ -12,7 +12,7 @@
     </form>
     <div v-if="error" class="alert alert-warning alert-dismissible fade show mt-5"
          role="alert">
-      <strong>{{this.error}}</strong>
+      <strong>{{error}}</strong>
     </div>
   </div>
 </template>
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods:{
-    async updateActor(){
+    updateActor(){
       console.log("call update actor")
       if (!this.first_name || !this.last_name) {
         this.error = "Please add all fields"
@@ -39,9 +39,10 @@ export default {
           first_name:this.first_name,
           last_name:this.last_name
         }
-        await ActorRepository.update(body_request, this.actor_id)
-        this.$router.push({
-            name:'actorshome'
+        ActorRepository.update(body_request, this.actor_id).then(() =>{
+          this.$router.push({
+          name:'actorshome'
+          })
         })
       }
     }
@@ -54,9 +55,12 @@ export default {
     }
   },
   async beforeRouteEnter(to, from, next){
-    if(to.params.actor_id != undefined){
-      const data = await ActorRepository.getActor(to.params.actor_id)
-      return next(vm => (vm.first_name=data.first_name, vm.last_name=data.last_name))
+    if(to.params.actor_id !== undefined){
+      await ActorRepository.getActor(to.params.actor_id).then(data =>{
+        console.log("before route enter")
+        console.log(data)
+        return next(vm => (vm.first_name=data.first_name, vm.last_name=data.last_name))
+      })
     }
     else{
       return next()

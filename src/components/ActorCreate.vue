@@ -23,7 +23,7 @@ import Repository from "../repositories/RepositoryFactory"
 const ActorRepository = Repository.get("actors")
 
 export default {
-  name: "Create",
+  name: "ActorCreate",
   data(){
     return {
       first_name:null,
